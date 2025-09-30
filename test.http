@@ -1,0 +1,129 @@
+POST http://localhost:4000/auth/signUp
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "surnName": "Walker",
+    "email": "isaacemmanueltech2@gmail.com",
+    "passWord": "mysecurepassword",
+    "role": "admin"
+}
+
+###
+
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "email" : "isaacemmanueltech1@gmail.com",
+    "passWord" : "mysecurepassword"
+}
+
+###
+
+GET http://localhost:4000/auth/all/users
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgzMDYzMzZ9.a-tLzfde36vxqlGANa9I8UhBKNQ_HRi1todjWELC-28
+
+###
+
+GET http://localhost:4000/auth/costumers
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgzMDYzMzZ9.a-tLzfde36vxqlGANa9I8UhBKNQ_HRi1todjWELC-28
+
+###
+
+GET http://localhost:4000/auth/riders
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgzMDYzMzZ9.a-tLzfde36vxqlGANa9I8UhBKNQ_HRi1todjWELC-28
+
+###
+
+POST http://localhost:4000/request/create
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGM4NWM5Y2RkYzcyMjQwMTg1YzE2MzkiLCJyb2xlIjoiY29zdHVtZXIiLCJmaXJzdE5hbWUiOiJwYXVsIiwic3Vybk5hbWUiOiJpZGlrdSIsImVtYWlsIjoiaXNhYWNlbW1hbnVlbHRlY2gxQGdtYWlsLmNvbSIsImlhdCI6MTc1ODQwNjQ2NX0.gIvvJd6WtZ-LZxJ22HOFAJ4Vc1ZabtUIgWh0vEDqqo4
+
+
+{
+   "pickup" : {
+    "address": "No 2 Paul close, Ojo. lagos.",
+    "Ln": "3.3792",
+    "Lt": "6.5244"
+   },
+   "dropoff": {
+    "address": "road 62 lekki lagos",
+    "Ln" : "7.4951",
+    "Lt" : "9.0579"
+   },
+   "package_details": "1 piece of 45 inches smart television",
+   "cost" : 5000
+}
+
+###
+
+GET http://localhost:4000/request 
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNhYjA0NzFlZGU3OGU5ZjAwNTgyMzkiLCJyb2xlIjoicmlkZXIiLCJmaXJzdE5hbWUiOiJJc2FhYyIsInN1cm5OYW1lIjoiRW1tYW51ZWwiLCJlbWFpbCI6ImZ1Y2hyb2NrQGdtYWlsLmNvbSIsImlhdCI6MTc1ODExNDA4NX0.Uls_v3wIiXRxFbB9zCxiMDVJ28ZC7sjuI4lOBHrPpq4
+
+###
+
+PUT  http://localhost:4000/request/accept/68cd44a35df23d9edef791ee
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNhYjA0NzFlZGU3OGU5ZjAwNTgyMzkiLCJyb2xlIjoicmlkZXIiLCJmaXJzdE5hbWUiOiJJc2FhYyIsInN1cm5OYW1lIjoiRW1tYW51ZWwiLCJlbWFpbCI6ImZ1Y2hyb2NrQGdtYWlsLmNvbSIsImlhdCI6MTc1ODExNDA4NX0.Uls_v3wIiXRxFbB9zCxiMDVJ28ZC7sjuI4lOBHrPpq4
+
+
+###
+
+
+GET http://localhost:4000/request/analytics
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgyOTA2Nzh9.xGJx36UfphmkdSucx5RCRUDff49j8PTnVm4eYG7EpQc
+
+###
+
+GET http://localhost:4000/auth/riders
+Content-Type: application/json
+authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgyOTA2Nzh9.xGJx36UfphmkdSucx5RCRUDff49j8PTnVm4eYG7EpQc
+
+
+###
+
+GET http://localhost:4000/request/all
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgzMDYzMzZ9.a-tLzfde36vxqlGANa9I8UhBKNQ_HRi1todjWELC-28
+
+###
+
+post http://localhost:4000/payment/initialize
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGM4NWM5Y2RkYzcyMjQwMTg1YzE2MzkiLCJyb2xlIjoiY29zdHVtZXIiLCJmaXJzdE5hbWUiOiJwYXVsIiwic3Vybk5hbWUiOiJpZGlrdSIsImVtYWlsIjoiaXNhYWNlbW1hbnVlbHRlY2gxQGdtYWlsLmNvbSIsImlhdCI6MTc1ODQwNjQ2NX0.gIvvJd6WtZ-LZxJ22HOFAJ4Vc1ZabtUIgWh0vEDqqo4
+
+{
+    "Email": "isaacemmanueltech1@gmail.com",
+    "Amount" : 5000,
+    "requestId": "68cf279b53758f75b12709d9"
+}
+
+###
+
+PUT http://localhost:4000/request/location/68c980a3eb550f6e2d9550c8
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNhYjA0NzFlZGU3OGU5ZjAwNTgyMzkiLCJyb2xlIjoicmlkZXIiLCJmaXJzdE5hbWUiOiJJc2FhYyIsInN1cm5OYW1lIjoiRW1tYW51ZWwiLCJlbWFpbCI6ImZ1Y2hyb2NrQGdtYWlsLmNvbSIsImlhdCI6MTc1OTE0ODI5Nn0.V_szr-IuAmKzKKRPM9oooMecQjjA_Sh8qZrOEaB2JLo
+
+{
+  "latitude": 6.5244,
+  "longitude": 3.3792
+}
+
+###
+
+GET http://localhost:4000/request/track/68c980a3eb550f6e2d9550c8
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGM4NWM5Y2RkYzcyMjQwMTg1YzE2MzkiLCJyb2xlIjoiY29zdHVtZXIiLCJmaXJzdE5hbWUiOiJwYXVsIiwic3Vybk5hbWUiOiJpZGlrdSIsImVtYWlsIjoiaXNhYWNlbW1hbnVlbHRlY2gxQGdtYWlsLmNvbSIsImlhdCI6MTc1OTE1NTAzNX0.K-KQgH7NME1LV8Ueb6YSNZqlgmdtWClE_DxgQRbkLvc
+
+
+###
+
+DELETE http://localhost:4000/request/single/68dc032bd2aad158ba8334ca
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNkNjJkNzBhMzhkZDU3YjFhNDI3NTQiLCJyb2xlIjoiYWRtaW4iLCJmaXJzdE5hbWUiOiJKb2huIiwic3Vybk5hbWUiOiJXYWxrZXIiLCJlbWFpbCI6ImlzYWFjZW1tYW51ZWx0ZWNoMkBnbWFpbC5jb20iLCJpYXQiOjE3NTgzMDYzMzZ9.a-tLzfde36vxqlGANa9I8UhBKNQ_HRi1todjWELC-28
