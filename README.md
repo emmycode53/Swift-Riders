@@ -14,6 +14,7 @@ Jest + supertest
 
 #setup instruction 
 clone this repository
+https://github.com/emmycode53/Swift-Riders.git
 git clone
 cd swift-rider
 git pull -origin main
