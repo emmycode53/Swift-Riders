@@ -1,10 +1,10 @@
-#Swift riders backend
+# Swift riders backend
 
-#project over view#
+# project over view#
 
 swift riders is a logistic backend application, build with nodejs, express using mongo DB to store datas,it handles user's auhentication, delivery request payments and analytics.
 
-#Tech stack
+# Tech stack
 nodejs
 express
 mongoDB + mongoose
@@ -12,17 +12,23 @@ paystack API
 JWT authentication,
 Jest + supertest
 
-#setup instruction 
+# setup instruction 
 clone this repository
 https://github.com/emmycode53/Swift-Riders.git
 git clone
 cd swift-rider
 git pull -origin main
 
-#to install dependencies
-npm install
+# install the following dependencies
+npm install express
+npm install axio
+npm install crypto "for webhook setup"
+npm install mongoose
+npm install nodemailler
+npm install dotenv "for your enviroment variables"
+npm install jsonwebtoken
 
-#create a .env file and create the following enviroment variables
+# create a .env file and create the following enviroment variables
 PORT= your port_here
 MONGO_ATLAS_URI = your DB uri here
 JWT_SECRET = your JWT secret key here
@@ -33,11 +39,11 @@ USER_EMAIL = your email here
 #to start server use this command
 npm start
 
-#to start nodemon command
+# to start nodemon 
 npm run dev
 
-#to test command
+# to test command
 npm test
 
-#author 
+# author 
 Isaac Emmanuel

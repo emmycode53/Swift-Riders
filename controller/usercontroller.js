@@ -4,9 +4,9 @@ const userModel = require('../schema/userSchema');
 
 const createUser = async (req, res)=>{
     try {
-        const {firstName,surnName,email,passWord, role } = req.body;
+        const {firstName,surnName,email,password, role } = req.body;
 
-        if(!firstName || !surnName || !email || !passWord || !role){
+        if(!firstName || !surnName || !email || !password || !role){
           return  res.status(403).send('all feilds are required')
         }
         const emailExist = await userModel.findOne({email});
@@ -15,9 +15,9 @@ const createUser = async (req, res)=>{
          return   res.status(409).send('this email has already been used')
         };
 
-        const harshedpassword =await bcrypt.hash(passWord,10);
+        const harshedpassword =await bcrypt.hash(password,10);
 
-        const newUser = await userModel.create({firstName, surnName,email,passWord:harshedpassword,role});
+        const newUser = await userModel.create({firstName, surnName,email,password:harshedpassword,role});
 
         const payLoad = {
             userId: newUser._id,
@@ -75,21 +75,19 @@ const createUser = async (req, res)=>{
 
 const loginUser = async (req, res) => {
   try {
-    const { email, passWord } = req.body;
+    const { email, password } = req.body;
 
     
-    if (!email || !passWord) {
+    if (!email || !password) {
       return res.status(403).send({ message: "Email and password are required" });
     }
 
-    const user = await userModel.findOne({ email }).select("+passWord");
+    const user = await userModel.findOne({ email }).select("+password");
     if (!user) {
       return res.status(404).send({ message: "Invalid credentials" }); 
     }
     
-
-
-    const isMatch = await bcrypt.compare(passWord, user.passWord);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).send({ message: "Invalid password" }); 
     }

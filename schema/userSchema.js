@@ -17,16 +17,17 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
 
-    passWord:{
+    password:{
         type: String,
         required : true,
         select : false
     },
 
-    role :{
-        type : String,
-        enum: ['admin', 'costumer', 'rider']
-    },
+    role: {
+   type: String,
+   enum: ["customer", "rider", "admin"], 
+   default: "customer"
+   },
 
     createdAt : {type : Date, default:Date.now  }
 });

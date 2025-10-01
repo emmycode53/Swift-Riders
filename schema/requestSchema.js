@@ -8,14 +8,12 @@ const requstSchema = new mongoose.Schema({
 
     pickup:{
         address:{type: String, require: true},
-        Ln : {type : Number, require: true},
-        Lt : {type : Number, require: true}
+        
     },
 
     dropoff :{
          address:{type: String, require: true},
-         Ln : {type : Number, require: true},
-         Lt : {type : Number, require: true}
+         
     },
 
     package_details :{

@@ -5,6 +5,7 @@ const userModel = require('../schema/userSchema')
 const authenticateUser = async (req, res, next) => {
   
   try {
+   
     const header = req.headers["authorization"]; 
 
 
