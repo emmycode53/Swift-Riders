@@ -5,7 +5,7 @@ const authenticateUser = require('../services/authenticateUser');
 
 /**
  * @swagger
- * /payment/initialize:
+ * /pay/initialize:
  *   post:
  *     summary: Initialize a Paystack payment
  *     description: Initializes a payment transaction with Paystack and returns the authorization URL, access code, and reference.
