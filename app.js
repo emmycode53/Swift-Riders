@@ -6,7 +6,7 @@ const {swaggerUi, swaggerSpec} = require('./swagger')
 const authroutes = require('./routes/usersroutes');
 const requestroutes = require('./routes/requestroutes');
 const webhookroute = require('./routes/webhookrout');
-const initializePaymentroute = require('./routes/initializepaymentroute')
+const initialize = require('./routes/initializepaymentroute')
 const app = express()
 
 
@@ -21,7 +21,7 @@ app.use(express.json());
 
 
 app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/pay', initializePaymentroute)
+app.use('/pay', initialize)
 app.use('/auth', authroutes);
 app.use('/request', requestroutes);
 
