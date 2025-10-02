@@ -80,3 +80,5 @@ const authenticateUser = require('../services/authenticateUser');
  *       bearerFormat: JWT
  */
 router.post('initialize' ,authenticateUser, payment.initializePayment);
+
+module.exports = router
