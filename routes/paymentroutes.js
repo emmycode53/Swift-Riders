@@ -28,7 +28,7 @@ const router = express.Router();
  *               Email:
  *                 type: string
  *                 format: email
- *                 example: "user@example.com"
+ *                 example: "isaacemmanueltech1@gmail.com"
  *                 description: The email of the user making the payment
  *               Amount:
  *                 type: number
@@ -36,7 +36,7 @@ const router = express.Router();
  *                 description: The amount to be paid in Naira
  *               requestId:
  *                 type: string
- *                 example: "6521dcbf8d4a9f1234567890"
+ *                 example: "68cf202e9a94c55ca468d63d"
  *                 description: The unique ID of the request associated with this payment
  *     responses:
  *       200:
@@ -112,10 +112,10 @@ router.post('/initialize', authenticateUser, paystack.initializePayment);
  *                     properties:
  *                       userId:
  *                         type: string
- *                         example: "6521dcbf8d4a9f1234567890"
+ *                         example: "68dd363f11d0543aad9c528e"
  *                       requestId:
  *                         type: string
- *                         example: "6521dcbf8d4a9f1234567890"
+ *                         example: "68c980a3eb550f6e2d9550c8"
  *     responses:
  *       200:
  *         description: Webhook processed successfully

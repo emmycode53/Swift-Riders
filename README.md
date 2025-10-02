@@ -3,6 +3,9 @@
 # project over view#
 
 swift riders is a logistic backend application, build with nodejs, express using mongo DB to store datas,it handles user's auhentication, delivery request payments and analytics.
+here is the swagger link to all the end point
+https://swift-riders.onrender.com/api-docs
+all the end points have been tested and working fine 
 
 # Tech stack
 nodejs
