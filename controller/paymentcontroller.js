@@ -47,14 +47,20 @@ const initializePayment = async(req, res)=>{
 const paystackWebhook = async(req,res)=>{
   try {
     const secret = process.env.PAYSTACK_SECRET_KEY;
-    const hash = crypto.createHmac("sha512", secret).update(JSON.stringify(req.body)).digest("hex");
+    const hash = crypto.createHmac("sha512", secret).update(req.body).digest("hex");
     if(hash !== req.headers["x-paystack-signature"]){
      return res.status(401).send({message:'invalid signature'});
     }
     res.sendStatus(200);
-    
+
     console.log('Webhook payload:', req.body); 
-    const event = req.body;
+    const event = JSON.parse(req.body.toString());
+    
+console.log(event.event); 
+console.log(event.data.reference); 
+console.log(event.data.metadata); 
+
+
     if(event.event === "charge.success"){
       const data = event.data;
       const { userId, requestId} = data.metadata
