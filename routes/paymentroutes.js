@@ -132,6 +132,6 @@ router.post('/initialize', authenticateUser, paystack.initializePayment);
  *               type: string
  *               example: "Internal server error"
  */
-router.post('/webhook',paystack.paystackWebhook);
+router.post('/webhook',express.raw({type:'application/json'}), paystack.paystackWebhook);
 
 module.exports = router;
