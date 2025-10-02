@@ -51,6 +51,9 @@ const paystackWebhook = async(req,res)=>{
     if(hash !== req.headers["x-paystack-signature"]){
      return res.status(401).send({message:'invalid signature'});
     }
+    res.sendStatus(200);
+    
+    console.log('Webhook payload:', req.body); 
     const event = req.body;
     if(event.event === "charge.success"){
       const data = event.data;
@@ -64,7 +67,7 @@ const paystackWebhook = async(req,res)=>{
       })
       console.log(`Payment successful for Request ${requestId} by User ${userId}`);
     }
-      res.sendStatus(200);
+      
 
   } catch (error) {
     console.error('webhook error', error.message);
