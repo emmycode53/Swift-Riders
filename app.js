@@ -21,7 +21,7 @@ app.use(express.json());
 
 
 app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/', initializePaymentroute)
+app.use('/pay', initializePaymentroute)
 app.use('/auth', authroutes);
 app.use('/request', requestroutes);
 
