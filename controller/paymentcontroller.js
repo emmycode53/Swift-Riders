@@ -44,42 +44,95 @@ const initializePayment = async(req, res)=>{
 
 };
 
-const paystackWebhook = async(req,res)=>{
-  try {
-    const secret = process.env.PAYSTACK_SECRET_KEY;
-    const hash = crypto.createHmac("sha512", secret).update(req.body).digest("hex");
-    if(hash !== req.headers["x-paystack-signature"]){
-     return res.status(401).send({message:'invalid signature'});
-    }
-    res.sendStatus(200);
+// const paystackWebhook = async(req,res)=>{
+//   try {
+//     const secret = process.env.PAYSTACK_SECRET_KEY;
+//     const hash = crypto.createHmac("sha512", secret).update(req.body).digest("hex");
+//     if(hash !== req.headers["x-paystack-signature"]){
+//      return res.status(401).send({message:'invalid signature'});
+//     }
+//     res.sendStatus(200);
 
-    console.log('Webhook payload:', req.body); 
-    const event = JSON.parse(req.body.toString());
+//     console.log('Webhook payload:', req.body); 
+//     const event = JSON.parse(req.body.toString());
     
-console.log(event.event); 
-console.log(event.data.reference); 
-console.log(event.data.metadata); 
+// console.log(event.event); 
+// console.log(event.data.reference); 
+// console.log(event.data.metadata); 
 
 
-    if(event.event === "charge.success"){
-      const data = event.data;
-      const { userId, requestId} = data.metadata
+//     if(event.event === "charge.success"){
+//       const data = event.data;
+//       const { userId, requestId} = data.metadata
 
-      await requestModel.findByIdAndUpdate(requestId, {
-        paymentStatus: "paid",
-        paidBy: userId,
-        transactionRef: data.reference,
+//       await requestModel.findByIdAndUpdate(requestId, {
+//         paymentStatus: "paid",
+//         paidBy: userId,
+//         transactionRef: data.reference,
 
-      })
-      console.log(`Payment successful for Request ${requestId} by User ${userId}`);
-    }
+//       })
+//       console.log(`Payment successful for Request ${requestId} by User ${userId}`);
+//     }
       
 
+//   } catch (error) {
+//     console.error('webhook error', error.message);
+//     res.sendStatus(500)
+//   }
+// };
+
+const paystackWebhook = async (req, res) => {
+  try {
+    const secret = process.env.PAYSTACK_SECRET_KEY;
+
+    if (!req.body) {
+      console.error("❌ Webhook received with empty body");
+      return res.sendStatus(400);
+    }
+
+    
+    const hash = crypto
+      .createHmac("sha512", secret)
+      .update(req.body)
+      .digest("hex");
+
+    if (hash !== req.headers["x-paystack-signature"]) {
+      return res.status(401).send({ message: "Invalid signature" });
+    }
+
+    
+    const event = JSON.parse(req.body.toString());
+    console.log("✅ Webhook Event:", event.event);
+    console.log("Reference:", event.data.reference);
+    console.log("Metadata:", event.data.metadata);
+
+  
+    if (event.event === "charge.success") {
+      try {
+        const { userId, requestId } = event.data.metadata;
+
+        await requestModel.findByIdAndUpdate(requestId, {
+          paymentStatus: "paid",
+          paidBy: userId,
+          transactionRef: event.data.reference,
+        });
+
+        console.log(`💰 Payment successful for Request ${requestId} by User ${userId}`);
+      } catch (dbError) {
+        console.error("❌ DB update failed:", dbError.message);
+        return res.sendStatus(500); 
+      }
+    }
+
+    
+    res.sendStatus(200);
+
   } catch (error) {
-    console.error('webhook error', error.message);
-    res.sendStatus(500)
+    console.error("❌ Webhook error:", error.message);
+    res.sendStatus(500);
   }
 };
+
 
 module.exports ={
   initializePayment,
