@@ -17,6 +17,10 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(express.json());
 
+app.post("/webhook-test", express.json(), (req, res) => {
+  console.log("✅ Webhook hit:", req.body);
+  res.sendStatus(200);
+});
 
 app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
