@@ -101,21 +101,11 @@ router.post('/initialize', authenticateUser, paystack.initializePayment);
  *               event:
  *                 type: string
  *                 example: "charge.success"
- *               data:
- *                 type: object
- *                 properties:
- *                   reference:
- *                     type: string
- *                     example: "REF123456789"
- *                   metadata:
- *                     type: object
- *                     properties:
- *                       userId:
- *                         type: string
- *                         example: "68dd363f11d0543aad9c528e"
- *                       requestId:
- *                         type: string
- *                         example: "68c980a3eb550f6e2d9550c8"
+ *               
+ *                       
+ *                       
+ *                         
+ *                        
  *     responses:
  *       200:
  *         description: Webhook processed successfully
