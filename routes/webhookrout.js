@@ -21,10 +21,10 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             description: Webhook payload sent by Paystack
- *             properties:
- *               event:
- *                 type: string
- *                 example: "charge.success"
+ *             
+ *               
+ *                 
+ *        
  *               
  *                       
  *                       
