@@ -1,5 +1,5 @@
 const axios = require('axios');
-const user = require('../schema/userSchema');
+const userModel = require('../schema/userSchema');
 const requestModel = require('../schema/requestSchema');
 const crypto = require('crypto');
 
@@ -81,55 +81,122 @@ const initializePayment = async(req, res)=>{
 //   }
 // };
 
+// const paystackWebhook = async (req, res) => {
+//   try {
+//     const secret = process.env.PAYSTACK_SECRET_KEY;
+
+//     if (!req.body) {
+//       console.error("❌ Webhook received with empty body");
+//       return res.sendStatus(400);
+//     }
+
+    
+//     const hash = crypto
+//       .createHmac("sha512", secret)
+//       .update(req.body)
+//       .digest("hex");
+
+//     if (hash !== req.headers["x-paystack-signature"]) {
+//       return res.status(401).send({ message: "Invalid signature" });
+//     }
+
+    
+//     const event = JSON.parse(req.body.toString());
+//     console.log("✅ Webhook Event:", event.event);
+//     console.log("Reference:", event.data.reference);
+//     console.log("Metadata:", event.data.metadata);
+
+  
+//     if (event.event === "charge.success") {
+//       try {
+//         const { userId, requestId } = event.data.metadata;
+
+//         await requestModel.findByIdAndUpdate(requestId, {
+//           paymentStatus: "paid",
+//           paidBy: userId,
+//           transactionRef: event.data.reference,
+//         });
+
+//         console.log(`💰 Payment successful for Request ${requestId} by User ${userId}`);
+//       } catch (dbError) {
+//         console.error("❌ DB update failed:", dbError.message);
+//         return res.sendStatus(500); 
+//       }
+//     }
+
+    
+//     res.sendStatus(200);
+
+//   } catch (error) {
+//     console.error("❌ Webhook error:", error.message);
+//     res.sendStatus(500);
+//   }
+// };
+
 const paystackWebhook = async (req, res) => {
   try {
     const secret = process.env.PAYSTACK_SECRET_KEY;
 
-    if (!req.body) {
-      console.error("❌ Webhook received with empty body");
-      return res.sendStatus(400);
-    }
+    const rawBody = req.body.toString();
 
-    
     const hash = crypto
       .createHmac("sha512", secret)
-      .update(req.body)
+      .update(rawBody)
       .digest("hex");
 
     if (hash !== req.headers["x-paystack-signature"]) {
-      return res.status(401).send({ message: "Invalid signature" });
+      return res.status(401).json({ message: "invalid signature" });
     }
 
+    const body = JSON.parse(rawBody);
+    const event = body.event;
+    const reference = body.data?.reference;
+    const metadata = body.data?.metadata;
+
+    console.log("✅ Webhook Event:", event);
+    console.log("Reference:", reference);
+    console.log("Metadata:", metadata);
+
     
-    const event = JSON.parse(req.body.toString());
-    console.log("✅ Webhook Event:", event.event);
-    console.log("Reference:", event.data.reference);
-    console.log("Metadata:", event.data.metadata);
-
-  
-    if (event.event === "charge.success") {
-      try {
-        const { userId, requestId } = event.data.metadata;
-
-        await requestModel.findByIdAndUpdate(requestId, {
+    if (event === "charge.success") {
+    
+      const updatedRequest = await requestModel.findByIdAndUpdate(
+        metadata.requestId,
+        {
           paymentStatus: "paid",
-          paidBy: userId,
-          transactionRef: event.data.reference,
-        });
+          paymentReference: reference,
+        },
+        { new: true }
+      );
 
-        console.log(`💰 Payment successful for Request ${requestId} by User ${userId}`);
-      } catch (dbError) {
-        console.error("❌ DB update failed:", dbError.message);
-        return res.sendStatus(500); 
-      }
+      
+      await userModel.findByIdAndUpdate(
+        metadata.userId,
+        { $push: { payments: reference } },
+        { new: true }
+      );
+
+      console.log(
+        `💰 Payment successful for Request ${metadata.requestId} by User ${metadata.userId}`
+      );
+
+      return res.json({
+        message: "Webhook processed successfully ✅",
+        event,
+        reference,
+        metadata,
+        request: updatedRequest,
+        note: `💰 Payment successful for Request ${metadata.requestId} by User ${metadata.userId}`,
+      });
     }
 
-    
-    res.sendStatus(200);
-
-  } catch (error) {
-    console.error("❌ Webhook error:", error.message);
-    res.sendStatus(500);
+    res.json({
+      message: "Event received but no action taken",
+      event,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
   }
 };
 
